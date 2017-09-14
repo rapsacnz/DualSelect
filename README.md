@@ -3,7 +3,7 @@ A new version of the MultiColumnSelect. Looks the same. Way better.
 
 The structure of the component is more modular - The main `DualSelect` component is made up of two `OrderedList` components which handle all the dragging, dropping moving via events (I've done this via appliation events but am thinking of moving to component events - it does add a dependency on the parent `DualSelect` component, but I suppose there is a pretty heavy depency anyway... :)
 
-![DualSelect in Action](http://i.imgur.com/W303K.gif)
+![DualSelect in Action](https://imgur.com/a/W303K.gif)
 
 To use, look at the DualSelect app. Eg:
 
