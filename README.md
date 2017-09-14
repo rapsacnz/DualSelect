@@ -5,6 +5,14 @@ The structure of the component is more modular - The main `DualSelect` component
 
 <blockquote class="imgur-embed-pub" lang="en" data-id="a/W303K"><a href="//imgur.com/W303K">DualSelect Lightning Component</a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
 
+What it looks like:
+[![DualSelect gif][1]][1]
+
+Let me know if you find any bugs.
+
+
+  [1]: https://imgur.com/a/W303K.gif
+
 To use, look at the DualSelect app. Eg:
 
     <aura:application access="global" extends="force:slds" >
