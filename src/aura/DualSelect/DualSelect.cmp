@@ -1,0 +1,144 @@
+<aura:component >
+    
+    <aura:attribute name="stagenames" type="Object[]" default="[
+                                                               {
+                                                               'label': 'Annual Review',
+                                                               'value': 'Annual Review'
+                                                               },
+                                                               {
+                                                               'label': 'Initial Contact',
+                                                               'value': 'Initial Contact'
+                                                               },
+                                                               {
+                                                               'label': 'Application',
+                                                               'value': 'Application'
+                                                               },
+                                                               {
+                                                               'label': 'Qualifying Documentation Review',
+                                                               'value': 'Qualifying Documentation Review'
+                                                               },
+                                                               {
+                                                               'label': 'Additional Documentation Requested',
+                                                               'value': 'Additional Documentation Requested'
+                                                               },
+                                                               {
+                                                               'label': 'Evaluations Sent',
+                                                               'value': 'Evaluations Sent'
+                                                               },
+                                                               {
+                                                               'label': '24 Hour Follow Up',
+                                                               'value': '24 Hour Follow Up'
+                                                               },
+                                                               {
+                                                               'label': '48 Hour Follow Up',
+                                                               'value': '48 Hour Follow Up'
+                                                               },
+                                                               {
+                                                               'label': 'Initial Items Received',
+                                                               'value': 'Initial Items Received'
+                                                               },
+                                                               {
+                                                               'label': 'Additional Items Requested',
+                                                               'value': 'Additional Items Requested'
+                                                               },
+                                                               {
+                                                               'label': 'Additional Items Received',
+                                                               'value': 'Additional Items Received'
+                                                               },
+                                                               {
+                                                               'label': 'On Hold',
+                                                               'value': 'On Hold'
+                                                               },
+                                                               {
+                                                               'label': 'Conditions Received',
+                                                               'value': 'Conditions Received'
+                                                               },
+                                                               {
+                                                               'label': 'Waiting on Approval',
+                                                               'value': 'Waiting on Approval'
+                                                               },
+                                                               {
+                                                               'label': 'Ready for Re-Submission',
+                                                               'value': 'Ready for Re-Submission'
+                                                               },
+                                                               {
+                                                               'label': 'Conditions Submitted',
+                                                               'value': 'Conditions Submitted'
+                                                               },
+                                                               {
+                                                               'label': 'Clear to Close',
+                                                               'value': 'Clear to Close'
+                                                               },
+                                                               {
+                                                               'label': 'Evaluation Ordered',
+                                                               'value': 'Evaluation Ordered'
+                                                               },
+                                                               {
+                                                               'label': 'Closed Won',
+                                                               'value': 'Closed Won'
+                                                               },
+                                                               {
+                                                               'label': 'Closed Lost',
+                                                               'value': 'Closed Lost'
+                                                               },
+                                                               {
+                                                               'label': 'Suspect',
+                                                               'value': 'Suspect'
+                                                               },
+                                                               {
+                                                               'label': 'Closed Lost - Nurture',
+                                                               'value': 'Closed Lost - Nurture'
+                                                               },
+                                                               {
+                                                               'label': 'Closed Lost - Rejected',
+                                                               'value': 'Closed Lost - Rejected'
+                                                               }
+                                                               ]"/>
+    
+    <aura:attribute name="selectedStagenames" type="Object[]" default="[
+                                                                       {
+                                                                       'label': 'In Credit Repair',
+                                                                       'value': 'In Credit Repair'
+                                                                       },
+                                                                       {
+                                                                       'label': 'Submit to Dev',
+                                                                       'value': 'Submit to Dev'
+                                                                       },
+                                                                       {
+                                                                       'label': 'Watching Market',
+                                                                       'value': 'Watching Market'
+                                                                       },
+                                                                       {
+                                                                       'label': 'Waiting for Response',
+                                                                       'value': 'Waiting for Response'
+                                                                       }]"/>
+    
+    
+    
+    <div class="slds">
+        <div class="slds-box">
+            
+            <div class="slds-picklist--draggable slds-grid">
+                <div class="slds-assistive-text" id="drag-live-region" aria-live="assertive"></div>
+                <div class="slds-assistive-text" id="option-drag-label">Press space bar when on an item, to move it within the list. CMD plus left and right arrow keys, to move items between lists.</div>
+                
+                <c:OrderedList aura:id="left" fieldName="Opportunity Stage" values="{#v.stagenames}" position="left" />   
+                
+                <div class="slds-grid slds-grid--vertical">
+                    <button class="slds-button slds-button--icon-container slds-button--icon-small" title="Right" onclick="{!c.moveRightToLeft}">
+                        <lightning:icon iconName="utility:left" size="small" class="slds-button__icon slds-button__icon--large" />
+                        <span class="slds-assistive-text">Move Selection to Second Category</span>
+                    </button>
+                    <button class="slds-button slds-button--icon-container slds-button--icon-small" title="Left" onclick="{!c.moveLeftToRight}">
+                        <lightning:icon iconName="utility:right" size="small" class="slds-button__icon slds-button__icon--large" />
+                        <span class="slds-assistive-text">Move Selection to First Category</span>
+                    </button>
+                </div>
+                
+                <c:OrderedList aura:id="right" fieldName="Selected Opportunity Stage Values" values="{#v.selectedStagenames}" showUpDown="true" position="right"/>
+                
+            </div>
+        </div>
+    </div>   
+
+</aura:application>
