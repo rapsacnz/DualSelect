@@ -1,5 +1,6 @@
 <aura:component >
     
+    <aura:attribute name="fieldName" type="String" default="Values"/>
     <aura:attribute name="leftValues" type="Object[]" default="[]"/>
     <aura:attribute name="rightValues" type="Object[]" default="[]"/>
 
@@ -9,7 +10,7 @@
             <div class="slds-assistive-text" id="drag-live-region" aria-live="assertive"></div>
             <div class="slds-assistive-text" id="option-drag-label">Press space bar when on an item, to move it within the list. CMD plus left and right arrow keys, to move items between lists.</div>
             
-            <c:OrderedList aura:id="left" fieldName="Opportunity Stage" values="{#v.leftValues}" position="left" />   
+            <c:OrderedList aura:id="left" fieldName="{!v.fieldName}" values="{!v.leftValues}" position="left" />   
             
             <div class="slds-grid slds-grid--vertical">
                 <button class="slds-button slds-button--icon-container slds-button--icon-small" title="Right" onclick="{!c.moveRightToLeft}">
@@ -22,7 +23,7 @@
                 </button>
             </div>
             
-            <c:OrderedList aura:id="right" fieldName="Selected Opportunity Stage Values" values="{#v.rightValues}" showUpDown="true" position="right"/>
+            <c:OrderedList aura:id="right" fieldName="{! 'Selected ' + v.fieldName + ' Values'}" values="{!v.rightValues}" showUpDown="true" position="right"/>
             
         </div>
     </div>   
