@@ -3,15 +3,13 @@ A new version of the MultiColumnSelect. Looks the same. Way better.
 
 The structure of the component is more modular - The main `DualSelect` component is made up of two `OrderedList` components which handle all the dragging, dropping moving via events (I've done this via appliation events but am thinking of moving to component events - it does add a dependency on the parent `DualSelect` component, but I suppose there is a pretty heavy depency anyway... :)
 
-<blockquote class="imgur-embed-pub" lang="en" data-id="a/W303K"><a href="//imgur.com/W303K">DualSelect Lightning Component</a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
-
 What it looks like:
 [![DualSelect gif][1]][1]
 
 Let me know if you find any bugs.
 
 
-  [1]: https://imgur.com/a/W303K.gif
+  [1]: https://imgur.com/g36y8If.gif
 
 To use, look at the DualSelect app. Eg:
 
