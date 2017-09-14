@@ -1,0 +1,77 @@
+<aura:component >
+    
+    <!--event handlers--> 
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler event="c:DataChange_AE" action="{!c.handleDataChangeAppEvent}"/>
+    
+    <!--event registration--> 
+    <aura:registerEvent name="multiColumnSelectChange" type="c:DataChange_CE" />
+    <aura:registerEvent name="generalCommunication" type="c:DataChange_AE"/>
+    
+    <!--public methods-->  
+    <aura:method name="removeItem" action="{!c.deleteFromList}" description="Delete an item based on a unique key">
+        <aura:attribute name="itemId" type="String" access="public"  />
+    </aura:method>
+    
+    <aura:method name="moveItems" action="{!c.moveItems}" description="move items from this list to another">
+    </aura:method>
+    
+    <!--public attributes-->
+    <aura:attribute name="fieldName" type="String" access="public"  />
+    <aura:attribute name="values" type="Object[]" description="all available values for this field" access="public"  />
+    <aura:attribute name="showUpDown" type="Boolean" description="Display up/down arrows" access="public" default="false"  />
+    <aura:attribute name="position" type="String" description="left or right" access="public"  />
+
+    <!--private attributes-->
+    <aura:attribute name="uuId" type="String" access="private"  />
+    <aura:attribute name="highlightedItem" type="Object" description="an item ready to be transferred to the selectedValues array" access="private" />
+    <aura:attribute name="highlightedItems" type="Object[]" description="a set of items ready to be transferred to the selectedValues array" access="private" />
+    <aura:attribute name="items" type="Object[]" description="items in this list" access="private"  />
+    <aura:attribute name="storedTimer" type="Object" description="storing a timer allows it to be cancelled" access="private" />
+    <aura:attribute name="changeEventScheduled" type="Boolean" description="set when we are scheduled to send an event" access="private" />
+    
+    <div class="slds">
+        
+        <div class="slds-picklist--draggable slds-grid">
+            
+            <div class="slds-form-element">
+                <span class="slds-form-element__label" >{!v.fieldName}</span>
+                <div class="slds-picklist" aura:id="items"  role="application" ondrop="{!c.handleOnDropParent}" 
+                     ondragenter="{!c.handleOnDragEnterDummy}" ondragleave="{!c.handleOnDragLeaveDummy}" ondragover="{!c.handleOnDragOverDummy}">
+                    <ul aria-describedby="option-drag-label" aria-multiselectable="true" class="slds-picklist__options slds-picklist__options--multi" 
+                        role="listbox" tabindex="0">
+                        
+                        <aura:iteration items="{!v.items}" var="item">
+                            
+                            <li class="{! 'slds-picklist__item slds-is-draggable ' + item.style}" 
+                                draggable="true" ondragstart="{!c.handleDragStart}" 
+                                id="{!item.id}" aria-selected="false" role="option" 
+                                tabindex="{!item.sort}" onclick="{!c.handleListClick}">
+                                <span id="{!item.id}" class="slds-truncate">{!item.sort} : {!item.value}</span>
+                            </li>
+                            
+                        </aura:iteration>
+                    </ul>
+                </div>
+            </div>
+            
+            <aura:if isTrue="{!v.showUpDown}">
+            <div class="slds-grid slds-grid--vertical">
+                
+                <button class="slds-button slds-button--icon-container slds-button--icon-small" title="Up" onclick="{!c.handleReorderItemUp}">
+                    <lightning:icon iconName="utility:up" size="small" class="slds-button__icon slds-button__icon--large" />
+                    <span class="slds-assistive-text">Move Selection Up</span>
+                </button>
+                
+                <button class="slds-button slds-button--icon-container slds-button--icon-small" title="Down" onclick="{!c.handleReorderItemDown}">
+                    <lightning:icon iconName="utility:down" size="small" class="slds-button__icon slds-button__icon--large" />
+                    <span class="slds-assistive-text">Move Selection Down</span>
+                </button>
+                
+            </div>
+            </aura:if>
+            
+        </div>
+    </div>
+    
+</aura:component>
