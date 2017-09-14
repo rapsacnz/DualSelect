@@ -1,11 +1,17 @@
 # DualSelect
 A new version of the MultiColumnSelect. Looks the same. Way better.
 
+<a href="https://githubsfdeploy.herokuapp.com?owner=rapsacnz&repo=DualSelect&ref=master">
+  <img alt="Deploy to Salesforce"
+       src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/deploy.png">
+</a>
+
 The structure of the component is more modular - The main `DualSelect` component is made up of two `OrderedList` components which handle all the dragging, dropping moving via events (I've done this via appliation events but am thinking of moving to component events - it does add a dependency on the parent `DualSelect` component, but I suppose there is a pretty heavy depency anyway... :)
 
 What it looks like:
 
 [![DualSelect gif][1]][1]
+
 
 To use, look at the DualSelect app. Eg:
 
