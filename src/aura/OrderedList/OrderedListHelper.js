@@ -13,7 +13,8 @@
         var itemOriginal = component.get(selectedItemName);
         
         var item = this.getItem(id,items);
-        items = this.removeStyles(items);
+        //items = this.removeStyles(items);
+        items = this.removeSelection(items);
         
         if (event.shiftKey && itemOriginal) {
             //make a selection from one to the next!
@@ -22,11 +23,13 @@
             
             var subset = this.getItems(start,end,items);
             
-            subset = this.addStyles(subset,' select-focus ');
+            //subset = this.addStyles(subset,' select-focus ');
+            subset = this.addSelection(subset);
             component.set(selectedListName,subset);
             component.set(selectedItemName,'');
         }
         else {
+            this.addSelection([item]);
             component.set(selectedItemName,item);
             component.set(selectedListName,[item]);
         }
@@ -53,12 +56,12 @@
     
     handleOnDragEnter: function(component, event) {
         var itemsDiv = component.find("items");
-        $A.util.addClass(itemsDiv,' select-focus ');
+        //$A.util.addClass(itemsDiv,' select-focus ');
     },
     
     handleOnDragLeave: function(component, event) {
         var itemsDiv = component.find("items");
-        $A.util.removeClass(itemsDiv,' select-focus ');
+        //$A.util.removeClass(itemsDiv,' select-focus ');
     },
     
     handleOnDropParent: function(component, event) {
@@ -111,7 +114,7 @@
      ***************************************/
     
     moveItems : function(component) {
-        var e = $A.get("e.c:DataChange_AE");
+        var e = $A.get("e.c:ApplicationEvent");
         e.setParams({
             "data" : {"uuId": component.get("v.uuId"), "items": component.get("v.highlightedItems"), "type" : "move"}
         });
@@ -119,7 +122,7 @@
     },
     
     moveComplete : function(component) {
-        var e = $A.get("e.c:DataChange_AE");
+        var e = $A.get("e.c:ApplicationEvent");
         e.setParams({
             "data" : {"uuId": component.get("v.uuId"), "type" : "moveComplete"}
         });
@@ -127,7 +130,7 @@
     },
     
     dragComplete : function(component, itemsDragged) {
-        var e = $A.get("e.c:DataChange_AE");
+        var e = $A.get("e.c:ApplicationEvent");
         e.setParams({
             "data" : {"uuId": component.get("v.uuId"), "type" : "dragComplete", "itemsDragged": itemsDragged}
         });
@@ -181,7 +184,7 @@
         timer = window.setTimeout(
             $A.getCallback(function() {
                 var compEvent = component.getEvent("multiColumnSelectChange");
-                compEvent.setParams({ "type": "multiColumnSelectChange","data" : {"action":"remove","position":position, "item":item}});
+                compEvent.setParams({ "category": "multiColumnSelectChange","data" : {"action":"remove","position":position, "item":item}});
                 compEvent.fire();
                 component.set("v.changeEventScheduled",false);
                 
@@ -223,6 +226,7 @@
         items.forEach( function(item,index){
             item.sort = index;
             item.style = '';
+            item.selected = false;
             item.id = self.uniqueId();
         });
         
@@ -336,6 +340,21 @@
         });
         return items;
     },
+
+    removeSelection : function(items) {
+        items.forEach( function(item){
+            item.selected = false;
+            //item.setAttribute('aria-selected', false);
+        });
+        return items;
+    },
+    
+    addSelection : function(items) {
+        items.forEach( function(item){
+            item.selected = true;
+        });
+        return items;
+    },
     
     removeStyles : function(items) {
         items.forEach( function(item){
@@ -429,7 +448,7 @@
         items = this.sortItems(items);
         component.set("v.items",items);
         
-        item.style  = ' select-focus ';
+        //item.style  = ' select-focus ';
         component.set("v.highlightedItem",item);
         
     },
