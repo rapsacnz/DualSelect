@@ -1,0 +1,6 @@
+.THIS div:focus {
+    outline: none;
+} 
+.THIS li:focus {
+    outline: none;
+}
