@@ -2,11 +2,12 @@
     
     <!--event handlers--> 
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler name="change" value="{!v.values}" action="{!c.doInit}" />
     <aura:handler event="c:DataChange_AE" action="{!c.handleDataChangeAppEvent}"/>
     
     <!--event registration--> 
-    <aura:registerEvent name="multiColumnSelectChange" type="c:DataChange_CE" />
-    <aura:registerEvent name="generalCommunication" type="c:DataChange_AE"/>
+    <aura:registerEvent name="multiColumnSelectChange" type="c:ComponentEvent" />
+    <aura:registerEvent name="generalCommunication" type="c:ApplicationEvent"/>
     
     <!--public methods-->  
     <aura:method name="removeItem" action="{!c.deleteFromList}" description="Delete an item based on a unique key">
@@ -30,33 +31,42 @@
     <aura:attribute name="storedTimer" type="Object" description="storing a timer allows it to be cancelled" access="private" />
     <aura:attribute name="changeEventScheduled" type="Boolean" description="set when we are scheduled to send an event" access="private" />
     
-    <div class="slds">
-        
-        <div class="slds-picklist--draggable slds-grid">
+       
+        <!-- <div class="slds-picklist^^draggable slds-grid"> -->
+        <div class="slds-dueling-list__column">
             
-            <div class="slds-form-element">
+            <!-- <div class="slds-form-element"> -->
                 <span class="slds-form-element__label" >{!v.fieldName}</span>
-                <div class="slds-picklist" aura:id="items"  role="application" ondrop="{!c.handleOnDropParent}" 
+                <div class="slds-dueling-list__options" aura:id="items"  role="application" ondrop="{!c.handleOnDropParent}" 
                      ondragenter="{!c.handleOnDragEnterDummy}" ondragleave="{!c.handleOnDragLeaveDummy}" ondragover="{!c.handleOnDragOverDummy}">
-                    <ul aria-describedby="option-drag-label" aria-multiselectable="true" class="slds-picklist__options slds-picklist__options--multi" 
+                    <ul aria-describedby="option-drag-label" aria-multiselectable="true" class="slds-listbox slds-listbox_vertical" 
                         role="listbox" tabindex="0">
                         
                         <aura:iteration items="{!v.items}" var="item">
                             
-                            <li class="{! 'slds-picklist__item slds-is-draggable ' + item.style}" 
+                            <li class="{! ' slds-listbox__item ' + item.style}" 
                                 draggable="true" ondragstart="{!c.handleDragStart}" 
-                                id="{!item.id}" aria-selected="false" role="option" 
+                                id="{!item.id}" role="option" 
                                 tabindex="{!item.sort}" onclick="{!c.handleListClick}">
-                                <span id="{!item.id}" class="slds-truncate">{!item.sort} : {!item.value}</span>
+
+
+                                <div class="slds-listbox__option slds-listbox__option_plain slds-media slds-media_small slds-media_inline" 
+                                  draggable="true" role="option" aria-selected="{!item.selected}">
+                                  <span class="slds-media__body">
+                                    <span id="{!item.id}" class="slds-truncate">{!item.sort} : {!item.value}</span>
+                                  </span>
+                                </div>
                             </li>
                             
                         </aura:iteration>
                     </ul>
-                </div>
+                <!-- </div> -->
             </div>
-            
-            <aura:if isTrue="{!v.showUpDown}">
-            <div class="slds-grid slds-grid--vertical">
+
+        </div>
+
+        <aura:if isTrue="{!v.showUpDown}">
+            <div class="slds-dueling-list__column">
                 
                 <button class="slds-button slds-button--icon-container slds-button--icon-small" title="Up" onclick="{!c.handleReorderItemUp}">
                     <lightning:icon iconName="utility:up" size="small" class="slds-button__icon slds-button__icon--large" />
@@ -69,9 +79,6 @@
                 </button>
                 
             </div>
-            </aura:if>
-            
-        </div>
-    </div>
+        </aura:if>
     
 </aura:component>
