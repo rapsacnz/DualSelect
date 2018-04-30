@@ -3,7 +3,7 @@
     <!--event handlers--> 
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
     <aura:handler name="change" value="{!v.values}" action="{!c.doInit}" />
-    <aura:handler event="c:DataChange_AE" action="{!c.handleDataChangeAppEvent}"/>
+    <aura:handler event="c:ApplicationEvent" action="{!c.handleDataChangeAppEvent}"/>
     
     <!--event registration--> 
     <aura:registerEvent name="multiColumnSelectChange" type="c:ComponentEvent" />
