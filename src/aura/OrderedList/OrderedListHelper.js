@@ -69,11 +69,17 @@
         event.preventDefault();
         event.stopPropagation();
         
+		var targetOption = event.target;
+		if (targetOption !== undefined) {
+            while (targetOption !== undefined && targetOption.tagName !== 'li' && targetOption.tagName !== 'LI') {
+				targetOption = targetOption.parentElement;
+			}
+		}
         var items = component.get("v.items");
         var rawData = event.dataTransfer.getData('text');
         var item = JSON.parse(rawData);
-        var receivingItem = this.getItem(event.target.id,items);
-        item = this.getItem(item.Id,items) || item;
+        var receivingItem = this.getItem(targetOption.id,items);
+        item = this.getItem(item.id,items) || item;
         
         //no items in the list or item wasn't dropped on a list item
         //possibly bad if there isn't a recieving item found but we are rearranging items
