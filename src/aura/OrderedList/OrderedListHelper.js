@@ -69,12 +69,14 @@
         event.preventDefault();
         event.stopPropagation();
         
-		var targetOption = event.target;
-		if (targetOption !== undefined) {
+	//fix to prevent duplication of items when dragged onto the same list
+        var targetOption = event.target;
+	if (targetOption !== undefined) {
             while (targetOption !== undefined && targetOption.tagName !== 'li' && targetOption.tagName !== 'LI') {
-				targetOption = targetOption.parentElement;
-			}
-		}
+	        targetOption = targetOption.parentElement;
+	    }
+	}
+	    
         var items = component.get("v.items");
         var rawData = event.dataTransfer.getData('text');
         var item = JSON.parse(rawData);
