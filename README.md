@@ -1,5 +1,5 @@
 # DualSelect
-A new version of the MultiColumnSelect. Looks the same. Way better.
+A two column option selector. Similar to the Duelling Picklist built in lightning component. Aura. 
 
 <a href="https://githubsfdeploy.herokuapp.com?owner=rapsacnz&repo=DualSelect&ref=master">
   <img alt="Deploy to Salesforce"
